@@ -63,7 +63,7 @@ function convertBlogInfo(BlogInfo){
     if(typeof(BlogInfo.tags)=== 'string'){
         //result.tags.push(BlogInfo.tags);
         //result.tags = BlogInfo.tags;
-        console.log(WARNING+':'+'tags is required Array!'+' Title:'+BlogInfo.title);
+        console.log( warningStr +':'+'tags is required Array!'+' Title:'+BlogInfo.title);
         result.tags = [];
     }
     else
@@ -132,43 +132,105 @@ db.once('open',function(){
 
 
 /* false 不存在, true 存在 */
-function isExist(title){
-    Post.findOne({title:title},function(err,data){
-        if(err)
-            console.log(err);
-        else{
-            if(data === null){
-                console.log("kong de");
-                return false;
-            } else
-                return true;
-        }
+
+/* 对一个文章进行处理 */
+
+
+function updateIsHave(){
+    return new Promise(function(resolve,reject){
+                Post.update({},{isHave:false},function(err){
+                    if(err)
+                        reject(err);
+                    else
+                        resolve();
+                });
     });
 }
 
+
+updateIsHave().then(function(){
+    return listDir('E:/MY_code/Git files/Rainboy/source/_posts');
+}).map(function(data){
+        var str = fs.readFileSync(join('E:/MY_code/Git files/Rainboy/source/_posts',data));
+        var hash = md5Str(str);
+        var ans = front_parse(str);
+        ans.hash = hash;
+        var result = convertBlogInfo(ans);
+        //console.log(result.title);
+        return new Promise(function(resolve,reject){
+                Post.findOne({title:result.title},{hash:1},function(err,data){
+                    if(err)
+                        reject(err);
+                    else{
+                        resolve(data);
+                        }
+                });
+        }).then(function(data){
+                
+          if(data === null){
+              return Post.create(result,function(err,res){
+                  if(err)
+                      console.log('cun ru shibai!');
+                  else
+                      console.log('cun ru chenggong');
+              });
+          } else{
+              if( data.hash !== result.hash){
+                  return Post.update({title:result.title},result,function(err){
+                      if(err) throw err;
+                  });
+              }
+              else
+                  return Post.update({title:result.title},{isHave:true},function(err){
+                      if(err) throw err;
+                  });
+          }
+          });
+});
+/*
 listDir('E:/MY_code/Git files/Rainboy/source/_posts').then(function(data){
 
-//    for(var i=0;i<data.length;i++){
-        var str = fs.readFileSync(join('E:/MY_code/Git files/Rainboy/source/_posts',data[2]));
+updateIsHave().then(function(){
+    for(var i=0;i<data.length;i++){
+        var str = fs.readFileSync(join('E:/MY_code/Git files/Rainboy/source/_posts',data[i]));
         var hash = md5Str(str);
         var ans = front_parse(str);
         ans.hash = hash;
       //console.log(ans._content);
         debugger;
         var result = convertBlogInfo(ans);
-        console.log(result);
-  //  }
-        /*
-        if(!isExist(ans.title)){
-            // 存入 
-            Post.create(ans,function(err,res){
-                    console.log(res);
-                    console.log(ans);
-            });
-        }
-        */
+        return ;
+    }).map(function(){
+                Post.findOne({title:result.title},{hash:1},function(err,data){
+                    if(err)
+                        console.log(err);
+                    else{
+                        if(data === null){
+                            Post.create(result,function(err,res){
+                                if(err)
+                                    console.log('cun ru shibai!');
+                                else
+                                    console.log('cun ru chenggong');
+                            });
+                        } else{
+                            if( data.hash !== result.hash){
+                                Post.update({title:result.title},result,function(err){
+                                    if(err) throw err;
+                                });
+                            }
+                            else
+                                Post.update({title:result.title},{isHave:true},function(err){
+                                    if(err) throw err;
+                                });
+                        }
+                    }
+                });
+    });
 
+    }
 });
+
+*/
 
 //Post.create({title:'test!!'});
 
