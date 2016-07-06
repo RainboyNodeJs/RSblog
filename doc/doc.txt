@@ -1,0 +1,7 @@
+第一步:读取所有的文件
+source/_post/目录下的所有文件
+
+md
+html
+
+分析-->进入mongodb 下
