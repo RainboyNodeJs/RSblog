@@ -3,6 +3,7 @@
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
+    "lodash": "^4.13.1",
     "nunjucks": "^2.4.2"
   }
 }
