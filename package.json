@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "js-yaml": "^3.6.1"
+  },
+  "devDependencies": {
+    "nunjucks": "^2.4.2"
   }
 }
