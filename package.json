@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "connect": "^2.30.2",
     "js-yaml": "^3.6.1"
   },
   "devDependencies": {
