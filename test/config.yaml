@@ -1,0 +1,42 @@
+# 整个站点的设置
+
+
+# 数据库设定
+DataBase: mongodb://localhost:20001/website
+
+# 站点的名字
+siteName: RainboyBlog
+
+# 子站输出的路径
+ChildSite: public
+
+
+# 子站的源码路径
+SourcePath: 
+    blog: public/blog
+    NoipBook: public/NoipBook
+    OJTM: public/OJTM
+
+# 设定
+blog:
+    pagination: 20
+    outPath: blog
+    post: post  # 文章输出路径
+    postCard: page
+    source: E:\MY_code\Git files\Rainboy\source\_posts
+
+	
+# ojtm
+ojtm:
+    source: E:\MY_code\Git files\OJ_code\_posts
+
+# 主题
+theme: RainboyTheme
+
+# Book设定 可以有多本书
+
+Books:
+    - name: NoipBook
+      outPath: NoipBook
+      SourcePath: E:/MY_code/Git files/myHexo/book
+
