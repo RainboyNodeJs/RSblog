@@ -29,6 +29,7 @@
     "connect": "^2.30.2",
     "highlight.js": "^9.5.0",
     "js-yaml": "^3.6.1",
-    "nunjucks": "^2.4.2"
+    "nunjucks": "^2.4.2",
+    "yargs": "^4.8.1"
   }
 }
