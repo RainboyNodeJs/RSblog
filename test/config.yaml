@@ -23,20 +23,22 @@ blog:
     outPath: blog
     post: post  # 文章输出路径
     postCard: page
-    source: E:\MY_code\Git files\Rainboy\source\_posts
+    source: /home/rainboy/mycode/gitfiles/blog/_posts
 
 	
 # ojtm
 ojtm:
-    source: E:\MY_code\Git files\OJ_code\_posts
+    source: /home/rainboy/mycode/gitfiles/oj_code/_posts
 
 # 主题
 theme: RainboyTheme
+# 主题路径
+themePath: /home/rainboy/mycode/gitfiles/RainboyTheme/nunjucks
 
 # Book设定 可以有多本书
 
 Books:
     - name: NoipBook
       outPath: NoipBook
-      SourcePath: E:/MY_code/Git files/myHexo/book
+      SourcePath: /home/rainboy/mycode/gitfiles/noipbook
 
